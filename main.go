@@ -2,26 +2,29 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/pjebs/restgate"
 	"github.com/unrolled/secure"
+	"media/app/service"
 	"net/http"
 )
 
 func main() {
-	r := gin.Default()
-	//r.Use(httpsHandler()) // https对应的中间件
-	//r.Use(authMiddlewareStatic())
-	r.Use(authMiddlewareDatabase())
-	r.GET("/auth1", func(c *gin.Context) {
-		fmt.Println(c.Request.Host)
-		c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "result": "验证通过"})
-	})
-	//r.Run(":8080")
-	path := "/home/wangzhitao/go_workspace/media-server/CA/"
-	r.RunTLS(":8080", path+"com-tomsky-media-0919111751_chain.crt", path+"com-tomsky-media-0919111751_key.key")
+	//r := gin.Default()
+	////r.Use(httpsHandler()) // https对应的中间件
+	////r.Use(authMiddlewareStatic())
+	//r.Use(authMiddlewareDatabase())
+	//r.GET("/auth1", func(c *gin.Context) {
+	//	fmt.Println(c.Request.Host)
+	//	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "result": "验证通过"})
+	//})
+	////r.Run(":8080")
+	//path := "/home/wangzhitao/go_workspace/media-server/CA/"
+	//r.RunTLS(":8080", path+"com-tomsky-media-0919111751_chain.crt", path+"com-tomsky-media-0919111751_key.key")
+
+	path := "/home/wangzhitao/Documents/music"
+	service.ParseMP3(path)
 }
 
 func httpsHandler() gin.HandlerFunc {
