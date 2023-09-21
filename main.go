@@ -6,7 +6,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/pjebs/restgate"
 	"github.com/unrolled/secure"
-	"media/app/service"
 	"net/http"
 )
 
@@ -24,7 +23,10 @@ func main() {
 	//r.RunTLS(":8080", path+"com-tomsky-media-0919111751_chain.crt", path+"com-tomsky-media-0919111751_key.key")
 
 	path := "/home/wangzhitao/Documents/music"
-	service.ParseMP3(path)
+	r := gin.Default()
+	r.StaticFS("/music", http.Dir(path))
+	r.Run(":8080")
+	//service.ParseMP3(path)
 }
 
 func httpsHandler() gin.HandlerFunc {
